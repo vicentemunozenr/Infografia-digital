@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
+        <title>Hola mundo</title>
+    </head>
+    <body>
+        <div class="container my-5">
+            <div class="row">
+                <div class="col-md-10 mx-auto">
+                    <h1>Ejemplo <i class="bi bi-bicycle"></i></h1>
+                    <p class="lead">Para comprender las ventajas de manipular el DOM con JavaScript, podemos crear una <a href="https://getbootstrap.com/docs/5.1/content/tables/">tabla</a> a partir de variables</p>
+                    <p>
+                        También podemos aprovechar los
+                        <a href="https://www.censo2017.cl/descargas/home/sintesis-de-resultados-censo2017.pdf">datos en Síntesis de Resultados Censo 2017 (pág. 8)</a> y el componente
+                        <a href="https://getbootstrap.com/docs/5.1/components/progress/">progress de Bootstrap</a> para poner barras dentro de celdas.
+                    </p>
+                    <p class="fw-bold">Primero veamos una <a href="https://getbootstrap.com/docs/5.1/content/tables/">tabla</a> construída "a mano":</p>
+
+                    <table class="table my-5">
+                        <thead>
+                            <tr>
+                                <th scope="col">Región</th>
+                                <th scope="col">Población <i class="bi bi-square-fill text-primary"></i> urbana y <i class="bi bi-square-fill text-success"></i> rural</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">Arica y Parinacota</th>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 92%;" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">92%</div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 8%;" aria-valuenow="8" aria-valuemin="0" aria-valuemax="100">8%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Tarapacá</th>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 94%;" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100">94%</div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 6%;" aria-valuenow="6" aria-valuemin="0" aria-valuemax="100">6%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Antofagasta</th>
+                                <td>
+                                    <div class="progress">
+                                        <div class="progress-bar" role="progressbar" style="width: 94%;" aria-valuenow="94" aria-valuemin="0" aria-valuemax="100">94%</div>
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: 6%;" aria-valuenow="6" aria-valuemin="0" aria-valuemax="100">6%</div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p class="fw-bold mb-5">Ahora veamos un par de <a href="https://getbootstrap.com/docs/5.1/content/tables/">tablas</a> construídas con un par de variables que contienen arreglos. Las tablas se muestran por separado, cada una dentro de un <a href="https://getbootstrap.com/docs/5.1/components/navs-tabs/#javascript-behavior">Panel activado por Tabs</a>:</p>
+
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <!--esto muestra el primer panel, nota en aria-selected dice 'true'-->
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="primerPanel-tab" data-bs-toggle="tab" data-bs-target="#primerPanel" type="button" role="tab" aria-controls="primerPanel" aria-selected="true">ÁREA URBANA-RURAL</button>
+                        </li>
+                        <!--esto muestra el segundo panel, nota en aria-selected dice 'false'-->
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#segundoPanel" type="button" role="tab" aria-controls="segundoPanel" aria-selected="false">PUEBLOS INDÍGENAS U ORIGINARIOS</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <!--este es el primer panel, nota que entre sus clases hay 'show' y 'active'-->
+                        <div class="tab-pane fade show active border border-top-0 p-3" id="primerPanel" role="tabpanel" aria-labelledby="primerPanel-tab">
+                            <table class="table table-borderless table-sm">
+                                <thead>
+                                    <tr>
+                                        <th scope="col"></th>
+                                        <th scope="col">Población <i class="bi bi-building text-primary"></i> urbana y <i class="bi bi-flower1 text-success"></i> rural</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="lugar" class="align-middle"></tbody>
+                            </table>
+                        </div>
+                        <!--este es el segundo panel, nota que entre sus clases NO hay 'show' ni 'active'-->
+                        <div class="tab-pane fade border border-top-0 p-3" id="segundoPanel" role="tabpanel" aria-labelledby="segundoPanel-tab">
+                            <table class="table table-borderless table-sm my-3">
+                                <thead>
+                                    <tr>
+                                        <th colspan="2">Porcentaje de la población que se consideró pertenenciente a un pueblo indígena u originario, según región de empadronamiento</th>
+                                    </tr>
+                                </thead>
+                               <tbody id="origen" class="align-middle"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+
+        <script>
+            //Fuente: https://www.censo2017.cl/descargas/home/sintesis-de-resultados-censo2017.pdf
+            //p.8
+            var poblaciones = [
+                { region: "Arica y Parinacota", urbana: 91.7, rural: 8.3 },
+                { region: "Tarapacá", urbana: 93.8, rural: 6.2 },
+                { region: "Antofagasta", urbana: 94.1, rural: 5.9 },
+                { region: "Atacama", urbana: 91.0, rural: 9.0 },
+                { region: "Coquimbo", urbana: 81.2, rural: 18.9 },
+                { region: "Valparaiso", urbana: 91.0, rural: 9.0 },
+                { region: "Metropolitana", urbana: 96.3, rural: 3.7 },
+                { region: "O'Higgins", urbana: 74.4, rural: 25.6 },
+                { region: "Maule", urbana: 73.2, rural: 26.8 },
+                { region: "Ñuble", urbana: 69.4, rural: 30.6 },
+                { region: "Biobío", urbana: 88.6, rural: 11.4 },
+                { region: "La Araucanía", urbana: 70.9, rural: 29.1 },
+                { region: "Los Ríos", urbana: 71.7, rural: 28.3 },
+                { region: "Los Lagos", urbana: 73.6, rural: 26.4 },
+                { region: "Aysén", urbana: 79.6, rural: 20.4 },
+                { region: "Magallanes", urbana: 91.9, rural: 8.1 }
+            ];
+            //p.17
+            var originarios = [
+                { region: "Arica y Parinacota", total: 35.7 },
+                { region: "Tarapacá", total: 24.9 },
+                { region: "Antofagasta", total: 14.1 },
+                { region: "Atacama", total: 19.7 },
+                { region: "Coquimbo", total: 8.9 },
+                { region: "Valparaiso", total: 6.8 },
+                { region: "Metropolitana", total: 10.1 },
+                { region: "O'Higgins", total: 6.5 },
+                { region: "Maule", total: 4.9 },
+                { region: "Ñuble", total: 4.8 },
+                { region: "Biobío", total: 11.0 },
+                { region: "La Araucanía", total: 34.3 },
+                { region: "Los Ríos", total: 25.6 },
+                { region: "Los Lagos", total: 28.2 },
+                { region: "Aysén", total: 28.7 },
+                { region: "Magallanes", total: 23.1 }
+            ];
+
+            poblaciones.forEach(primeraTabla);
+            originarios.forEach(segundaTabla);
+
+            function primeraTabla(x) {
+                lugar.innerHTML +=
+                    '<tr><td scope="row">' +
+                    x.region +
+                    '</td><td style="width:65%"><div class="progress"><div class="progress-bar" role="progressbar" style="width:' +
+                    Math.round(x.urbana) +
+                    '%" aria-valuenow="' +
+                    Math.round(x.urbana) +
+                    '" aria-valuemin="0" aria-valuemax="100">' +
+                    x.urbana +
+                    '%</div><div class="progress-bar bg-success" role="progressbar" style="width:' +
+                    Math.round(x.rural) +
+                    '%" aria-valuenow="' +
+                    Math.round(x.rural) +
+                    '" aria-valuemin="0" aria-valuemax="100">' +
+                    x.rural +
+                    "%</div></td></tr>";
+            }
+            function segundaTabla(x) {
+                origen.innerHTML +=
+                    '<tr><td>' +
+                    x.region +
+                    '</td><td style="width:65%"><div class="progress"><div class="progress-bar bg-danger" role="progressbar" style="width:' +
+                    Math.round(x.total) +
+                    '%" aria-valuenow="' +
+                    Math.round(x.total) +
+                    '" aria-valuemin="0" aria-valuemax="100">' +
+                    x.total +
+                    "%</div></td></tr>";
+            }
+        </script>
+    </body>
+</html>
+</svg>
